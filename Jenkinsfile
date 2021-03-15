@@ -1,4 +1,5 @@
 pipeline {
+    agent any
     environment {
         DOCKER_IMAGE_NAME = "benjcady14/pipeline-demo"
         MAVEN_IMAGE_NAME = "log-aggregation-demo:0.0.1-SNAPSHOT"
@@ -16,10 +17,10 @@ pipeline {
         }
 
         stage('Push Docker Image'){
-            when {
-                //only do the push stage if we are on the main branch
-                branch 'main'
-            }
+            // when {
+            //     //only do the push stage if we are on the main branch
+            //     branch 'main'
+            // }
             steps{
                 script {
                     docker.withRegistry('https://registry.hub.docker.com', 'docker-jenkins-token'){
@@ -32,3 +33,6 @@ pipeline {
         }
     }
 }
+
+//I hope this works
+//Author Ben Cady
