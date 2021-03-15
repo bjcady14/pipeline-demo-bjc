@@ -15,6 +15,20 @@
 	<description>Demo project for Spring Boot</description>
 	<properties>
 		<java.version>1.8</java.version>
+
+		<!-- Obtained from sonarcloud, configuration for this project's analysis -->
+		<sonar.projectKey>bjcady14_pipeline-demo-bjc</sonar.projectKey>
+		<sonar.organization>bjcady14</sonar.organization>
+		<sonar.host.url>https://sonarcloud.io</sonar.host.url>
+
+		<!-- there are more properties we can configure for additional test coverage reports -->
+		<coverage.reports.dir>target/coverage-reports</coverage.reports.dir>
+		<sonar.coverage.jacoco.xmlReportPaths>target/site/jacoco/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
+
+		<!-- this configuration excludes certain packages from being analyzed -->
+		<!-- This is helpful because project2 only has requirements for test coverage of the services package -->
+		<!-- In industry, we would keep most packages. We would mostly exclude the models package because it contains no logic, only stores data -->
+		<sonar.exclusions>src/**/models/**/*, src/**/controllers/**/*, src/**/repositories/**/*</sonar.exclusions>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -92,6 +106,33 @@
 						</exclude>
 					</excludes>
 				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.jacoco</groupId>
+				<artifactId>jacoco-maven-plugin</artifactId>
+				<version>0.8.4</version>
+				<configuration>
+					<outputDirectory>${coverage.reports.dir}</outputDirectory>
+					<excludes>
+						<exclude>**/models/**</exclude>
+						<exclude>**/controllers/**</exclude>
+					</excludes>
+				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>prepare-agent</goal>
+						</goals>
+					</execution>
+
+					<execution>
+						<id>report</id>
+						<phase>test</phase>
+						<goals>
+							<goal>report</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>
