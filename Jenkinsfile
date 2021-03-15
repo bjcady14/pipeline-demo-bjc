@@ -49,13 +49,13 @@ pipeline {
         }
     }
 
-    post{
-        always{
-            //can use the previously constructed quality gate variable
-            //perhaps include the results as part of a discordSend instruction
-            //might use another scritpd scope depending on what you need to do
-        }
-    }
+    // post{
+    //     always{
+    //         //can use the previously constructed quality gate variable
+    //         //perhaps include the results as part of a discordSend instruction
+    //         //might use another scritpd scope depending on what you need to do
+    //     }
+    // }
 }
 
 //I hope this work
